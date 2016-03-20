@@ -54,9 +54,9 @@
                 <p>君は幸せでしたか？
                     とても幸せでした。 </p>
 
-                <p>たくさん回り道をしたね。
+               <!-- <p>たくさん回り道をしたね。
                     でもやっとお互い 一番 来たかった场所に戻ってこれたんだね。 </p>
-
+-->
                 <p>やさしい光が降り注いでいたね。
                     暗暗を知ったからこそ 见える穏やかな光。</p>
             </div>
@@ -127,13 +127,39 @@
               line-height: 30px;">TOMORROW WILL BE BETTER THAN THAT BEFORE!</a>
         </li>
     </ul>
-    <audio controls="controls" autoplay="autoplay">
-        <source src="music.mp3" type="audio/mpeg" />
-        Your browser does not support the audio element.
-    </audio>
+    <div class="music" id="musicBtn"></div>
+    <audio id="audio1" src="music.mp3" preload="none" loop/>
 </div>
 
 </body>
 </html>
 <script src="index.js"></script>
+<script type="text/javascript">
+    var musicBtn = document.getElementById("musicBtn");
+    var musicAudio = document.getElementById("audio1");
+
+    //->当页面加载完成后,我们开始播放我们的音频文件
+    window.addEventListener("load", function () {
+        musicAudio.play();
+        //musicAudio.muted = true;//静音
+        //musicAudio.volume = 0.2;
+
+        //->canplay:监听当前的音频文件是否可以播放了
+        musicAudio.addEventListener("canplay", function () {
+            musicBtn.style.display = "block";
+            musicBtn.className = "music move";
+        }, false);
+
+        //->给按钮绑定点击事件,单击的时候判断当前是否处于播放状态,播放状态让其暂停,暂停状态让其播放
+        musicBtn.addEventListener("touchend", function () {
+            if (musicAudio.paused) {//->是否为暂停状态,此时是暂停状态
+                musicAudio.play();
+                musicBtn.className = "music move";
+            } else {
+                musicAudio.pause();
+                musicBtn.className = "music";
+            }
+        }, false);
+    }, false);
+</script>
 
